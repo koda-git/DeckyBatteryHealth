@@ -5,12 +5,14 @@ import os
 # and add the `decky-loader/plugin/imports` path to `python.analysis.extraPaths` in `.vscode/settings.json`
 import decky
 import asyncio
+import subprocess
+import re
 
 class Plugin:
     # A normal method. It can be called from the TypeScript side using @decky/api.
     async def add(self, left: int, right: int) -> int:
         return left + right
-
+    
     async def long_running(self):
         await asyncio.sleep(15)
         # Passing through a bunch of random data, just as an example
@@ -36,6 +38,21 @@ class Plugin:
     async def start_timer(self):
         self.loop.create_task(self.long_running())
 
+
+    async def get_battery_info(self):
+        try:
+            output = subprocess.check_output(["upower", "-i", "/org/freedesktop/UPower/devices/battery_BAT0"]).decode("utf-8")
+            battery_info = {}
+
+            full_capcity = re.search(r"energy-full:.*?(\d+.\d+)", output)
+            battery_size = re.search(r"energy-full-design:.*?(\d+.\d+)", output)
+
+            
+
+        except Exception as e:
+            decky.logger.error(f"Failed to get battery info: {e}")
+            pass
+        
     # Migrations that should be performed before entering `_main()`.
     async def _migration(self):
         decky.logger.info("Migrating")
