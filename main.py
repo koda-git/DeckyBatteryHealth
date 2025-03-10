@@ -41,13 +41,23 @@ class Plugin:
 
     async def get_battery_info(self):
         try:
-            output = subprocess.check_output(["upower", "-i", "/org/freedesktop/UPower/devices/battery_BAT0"]).decode("utf-8")
-            battery_info = {}
+            output = subprocess.check_output(
+                ["upower", "-i", "/org/freedesktop/UPower/devices/battery_BAT0"],
+                universal_newlines=True
+                )
+            full_charge = re.search(r'energy-full:\s+(\d+.\d+)', output)
+            battery_size = re.search(r'energy-full-design:\s+(\d+.\d+)', output)
 
-            full_capcity = re.search(r"energy-full:.*?(\d+.\d+)", output)
-            battery_size = re.search(r"energy-full-design:.*?(\d+.\d+)", output)
-
-            
+            if full_charge and battery_size:
+                return {
+                    "fullCharge": float(full_charge.group(1)),
+                        "batterySize": float(battery_size.group(1))
+                 }
+            else:
+                return {"fullCharge": 0, "batterySize": 0}
+        except Exception as e:
+                decky.logger.error(f"Error getting battery info: {e}")
+                return {"fullCharge": 0, "batterySize": 0}
 
         except Exception as e:
             decky.logger.error(f"Failed to get battery info: {e}")
