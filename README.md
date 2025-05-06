@@ -4,67 +4,37 @@ Reference example for using [decky-frontend-lib](https://github.com/SteamDeckHom
 
 ### **Please also refer to the [wiki](https://wiki.deckbrew.xyz/en/user-guide/home#plugin-development) for important information on plugin development and submissions/updates. currently documentation is split between this README and the wiki which is something we are hoping to rectify in the future.**  
 
-## Developers
 
-### Dependencies
+# Decky Battery Health Plugin for Steam Deck [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://deckbrew.xyz/discord)
 
-This template relies on the user having Node.js v16.14+ and `pnpm` (v9) installed on their system.  
-Please make sure to install pnpm v9 to prevent issues with CI during plugin submission.  
-`pnpm` can be downloaded from `npm` itself which is recommended.
+A very simple Decky Loader plugin that displays your Steam Deck’s battery health based on kernel stats from `/sys/class/power_supply/BAT1`.
+![DeckyBatteryHealth](readmeimg.jpg)
 
-#### Linux
 
-```bash
-sudo npm i -g pnpm@9
-```
+---
 
-If you would like to build plugins that have their own custom backends, Docker is required as it is used by the Decky CLI tool.
+## 🔋 Features
 
-### Making your own plugin
+- Displays battery health as a percentage
+- Reads directly from preinstalled upower binary
+- Lightweight and simple UI
+- Future plans:
+  - Charge cycle count
+  - Estimated wear and charge rate
+  - Remaining time display
+  - Warnings for poor health
 
-1. You can fork this repo or utilize the "Use this template" button on Github.
-2. In your local fork/own plugin-repository run these commands:
-   1. ``pnpm i``
-   2. ``pnpm run build``
-   - These setup pnpm and build the frontend code for testing.
-3. Consult the [decky-frontend-lib](https://github.com/SteamDeckHomebrew/decky-frontend-lib) repository for ways to accomplish your tasks.
-   - Documentation and examples are still rough, 
-   - Decky loader primarily targets Steam Deck hardware so keep this in mind when developing your plugin.
-4. If using VSCodium/VSCode, run the `setup` and `build` and `deploy` tasks. If not using VSCodium etc. you can derive your own makefile or just manually utilize the scripts for these commands as you see fit.
+---
 
-If you use VSCode or it's derivatives (we suggest [VSCodium](https://vscodium.com/)!) just run the `setup` and `build` tasks. It's really that simple.
+## 🧩 Installation
 
-#### Other important information
+### 📦 Decky Plugin Loader
 
-Everytime you change the frontend code (`index.tsx` etc) you will need to rebuild using the commands from step 2 above or the build task if you're using vscode or a derivative.
+1. Open desktop mode.
+2. Download the latest release .zip and move it to Desktop or keep it in Downloads
+3. Enable **Developer Mode** in Decky Loader (Quick Access → Decky → Settings ).
+4. Click the **Developer** menu and install the latest release .zip file from there
 
-Note: If you are receiving build errors due to an out of date library, you should run this command inside of your repository:
-
-```bash
-pnpm update @decky/ui --latest
-```
-
-### Backend support
-
-If you are developing with a backend for a plugin and would like to submit it to the [decky-plugin-database](https://github.com/SteamDeckHomebrew/decky-plugin-database) you will need to have all backend code located in ``backend/src``, with backend being located in the root of your git repository.
-When building your plugin, the source code will be built and any finished binary or binaries will be output to ``backend/out`` (which is created during CI.)
-If your buildscript, makefile or any other build method does not place the binary files in the ``backend/out`` directory they will not be properly picked up during CI and your plugin will not have the required binaries included for distribution.
-
-Example:  
-In our makefile used to demonstrate the CI process of building and distributing a plugin backend, note that the makefile explicitly creates the `out` folder (``backend/out``) and then compiles the binary into that folder. Here's the relevant snippet.
-
-```make
-hello:
-	mkdir -p ./out
-	gcc -o ./out/hello ./src/main.c
-```
-
-The CI does create the `out` folder itself but we recommend creating it yourself if possible during your build process to ensure the build process goes smoothly.
-
-Note: When locally building your plugin it will be placed into a folder called 'out' this is different from the concept described above.
-
-The out folder is not sent to the final plugin, but is then put into a ``bin`` folder which is found at the root of the plugin's directory.  
-More information on the bin folder can be found below in the distribution section below.
 
 ### Distribution
 
