@@ -24,13 +24,15 @@ A very simple Decky Loader plugin that displays your Steam Deck’s battery heal
 
 ### 📦 Decky Plugin Loader
 
-1. Open desktop mode.
-2. Download the latest release .zip and move it to Desktop or keep it in Downloads
-3. Enable **Developer Mode** in Decky Loader (Quick Access → Decky → Settings ).
-4. Click the **Developer** menu and install the latest release .zip file from there
+1. Have [Decky](https://decky.xyz) installed
+2. Open desktop mode.
+3. Download the latest release .zip from [releases](https://github.com/koda-git/DeckyBatteryHealth/releases) and move it to Desktop or keep it in Downloads
+4. Enable **Developer Mode** in Decky Loader (Quick Access → Decky → Settings ).
+5. Click the **Developer** menu and install the latest release .zip file from there
 
 
-### Distribution
+
+#### Distribution (todo later)
 
 We recommend following the instructions found in the [decky-plugin-database](https://github.com/SteamDeckHomebrew/decky-plugin-database) on how to get your plugin up on the plugin store. This is the best way to get your plugin in front of users.
 You can also choose to do distribution via a zip file containing the needed files, if that zip file is uploaded to a URL it can then be downloaded and installed via decky-loader.
