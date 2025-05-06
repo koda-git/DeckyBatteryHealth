@@ -16,6 +16,7 @@ A very simple Decky Loader plugin that displays your Steam Deck’s battery heal
   - Estimated wear and charge rate
   - Remaining time display
   - Warnings for poor health
+  - Refine it so it's good enough for the official repo
 
 ---
 
