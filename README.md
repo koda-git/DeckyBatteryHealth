@@ -9,7 +9,7 @@ A very simple Decky Loader plugin that displays your Steam Deck’s battery heal
 ## 🔋 Features
 
 - Displays battery health as a percentage
-- Reads directly from preinstalled upower binary
+- Reads directly from preinstalled `upower` binary
 - Lightweight and simple UI
 - Future plans:
   - Charge cycle count
