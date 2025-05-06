@@ -42,7 +42,7 @@ class Plugin:
     async def get_battery_info(self):
         try:
             output = subprocess.check_output(
-                ["upower", "-i", "/org/freedesktop/UPower/devices/battery_BAT0"],
+                ["upower", "-i", "/org/freedesktop/UPower/devices/battery_BAT1"],
                 universal_newlines=True
                 )
             full_charge = re.search(r'energy-full:\s+(\d+.\d+)', output)

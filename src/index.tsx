@@ -2,7 +2,7 @@ import {
   ButtonItem,
   PanelSection,
   PanelSectionRow,
-  Navigation,
+  //Navigation,
   staticClasses
 } from "@decky/ui";
 import {
@@ -17,31 +17,20 @@ import { useState } from "react";
 import { FaShip } from "react-icons/fa";
 
 // import logo from "../assets/logo.png";
-// This function calls the python function "add", which takes in two numbers and returns their sum (as a number)
-// Note the type annotations:
-//  the first one: [first: number, second: number] is for the arguments
-//  the second one: number is for the return value
-
-const add = callable<[first: number, second: number], number>("add");
 
 // Have not implemented the python function yet
 // Concept is to use uPower to get battery health example bash command is upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full | percentage | capacity"
 // Then just pipe the output to a python script that parses the output and returns the battery health
 // Problem is I don't know if upower is installed on SteamOS 3 by default
 
-
 const checkBatteryHealth = callable<[], { state: string, tofull: string, percentage: number, capacity: number }>("get_battery_info");
-
-// This function calls the python function "start_timer", which takes in no arguments and returns nothing.
-// It starts a (python) timer which eventually emits the event 'timer_event'
-const startTimer = callable<[], void>("start_timer");
 
 function Content() {
   const [result, setResult] = useState<number | undefined>();
 
   const onClick = async () => {
-    const result = await add(Math.random(), Math.random());
-    setResult(result);
+    const result = await checkBatteryHealth();
+    setResult(result.capacity);
   };
 
   return (
@@ -51,15 +40,7 @@ function Content() {
           layout="below"
           onClick={onClick}
         >
-          {result ?? "Add two numbers via Python"}
-        </ButtonItem>
-      </PanelSectionRow>
-      <PanelSectionRow>
-        <ButtonItem
-          layout="below"
-          onClick={() => startTimer()}
-        >
-          {"Start Python timer"}
+          {result ?? "Check Battery Health"}
         </ButtonItem>
       </PanelSectionRow>
 
