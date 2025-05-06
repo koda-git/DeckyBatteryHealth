@@ -3,7 +3,7 @@ import os
 # The decky plugin module is located at decky-loader/plugin
 # For easy intellisense checkout the decky-loader code repo
 # and add the `decky-loader/plugin/imports` path to `python.analysis.extraPaths` in `.vscode/settings.json`
-import decky
+import decky # Don't worry about this import, it's handled by the loader
 import asyncio
 import subprocess
 import re
@@ -55,10 +55,7 @@ class Plugin:
                  }
             else:
                 return {"fullCharge": 0, "batterySize": 0}
-        except Exception as e:
-                decky.logger.error(f"Error getting battery info: {e}")
-                return {"fullCharge": 0, "batterySize": 0}
-
+            
         except Exception as e:
             decky.logger.error(f"Failed to get battery info: {e}")
             pass

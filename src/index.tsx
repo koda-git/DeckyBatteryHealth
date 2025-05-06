@@ -23,44 +23,32 @@ import { FaShip } from "react-icons/fa";
 // Then just pipe the output to a python script that parses the output and returns the battery health
 // Problem is I don't know if upower is installed on SteamOS 3 by default
 
-const checkBatteryHealth = callable<[], { state: string, tofull: string, percentage: number, capacity: number }>("get_battery_info");
+const checkBatteryHealth = callable<[], { fullCharge: number, batterySize: number }>("get_battery_info");
 
 function Content() {
   const [result, setResult] = useState<number | undefined>();
 
   const onClick = async () => {
-    const result = await checkBatteryHealth();
-    setResult(result.capacity);
+    try {
+      const result = await checkBatteryHealth();
+      console.log("Battery Info:", result); // Debugging log
+      const batteryHealth = (result.fullCharge / result.batterySize) * 100;
+      setResult(batteryHealth);
+    } catch (error) {
+      console.error("Error fetching battery health:", error);
+    }
   };
 
   return (
-    <PanelSection title="Panel Section">
+    <PanelSection title="DeckyBatteryHealth">
       <PanelSectionRow>
         <ButtonItem
           layout="below"
           onClick={onClick}
         >
-          {result ?? "Check Battery Health"}
+          {result !== undefined ? `Battery Health: ${result.toFixed(2)}%` : "Check Battery Health"}
         </ButtonItem>
       </PanelSectionRow>
-
-      {/* <PanelSectionRow>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} />
-        </div>
-      </PanelSectionRow> */}
-
-      {/*<PanelSectionRow>
-        <ButtonItem
-          layout="below"
-          onClick={() => {
-            Navigation.Navigate("/decky-plugin-test");
-            Navigation.CloseSideMenus();
-          }}
-        >
-          Router
-        </ButtonItem>
-      </PanelSectionRow>*/}
     </PanelSection>
   );
 };
