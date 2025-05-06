@@ -31,10 +31,11 @@ A very simple Decky Loader plugin that displays your Steam Deck’s battery heal
 5. Click the **Developer** menu and install the latest release .zip file from there
 
 
+--- 
 
-## TODO
 
-#### Distribution (todo later)
+
+### Distribution (todo later)
 
 We recommend following the instructions found in the [decky-plugin-database](https://github.com/SteamDeckHomebrew/decky-plugin-database) on how to get your plugin up on the plugin store. This is the best way to get your plugin in front of users.
 You can also choose to do distribution via a zip file containing the needed files, if that zip file is uploaded to a URL it can then be downloaded and installed via decky-loader.
